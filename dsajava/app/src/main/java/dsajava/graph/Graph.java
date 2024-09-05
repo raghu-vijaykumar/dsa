@@ -47,11 +47,16 @@ public class Graph {
     // Removes an undirected edge between two vertices. Returns false if either
     // vertex is not found.
     public boolean removeEdge(String vertex1, String vertex2) {
+        if (vertex1.equals(vertex2)) // Prevent self-loops
+            return false;
         if (!adjacencyList.containsKey(vertex1)) // Check if vertex1 exists.
             return false;
         if (!adjacencyList.containsKey(vertex2)) // Check if vertex2 exists.
             return false;
 
+        if (!adjacencyList.get(vertex1).contains(vertex2) || !adjacencyList.get(vertex2).contains(vertex1)) {
+            return false;
+        }
         // Remove vertex2 from vertex1's adjacency list and vice versa.
         adjacencyList.get(vertex1).remove(vertex2);
         adjacencyList.get(vertex2).remove(vertex1);
