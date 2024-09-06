@@ -5,65 +5,148 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class RecursiveBinarySearchTreeTest {
+class RecursiveBinarySearchTreeTest {
 
     @Test
-    public void testInsertAndContains() {
+    void testInsertAndContains() {
         RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
 
-        // Insert values
-        bst.rInsert(10);
-        bst.rInsert(5);
-        bst.rInsert(15);
-        bst.rInsert(2);
-        bst.rInsert(7);
-        bst.rInsert(12);
+        // Test inserting values into the tree
+        bst.rInsert(50);
+        bst.rInsert(30);
+        bst.rInsert(70);
         bst.rInsert(20);
+        bst.rInsert(40);
+        bst.rInsert(60);
+        bst.rInsert(80);
 
-        // Test that the inserted values are correctly contained in the tree
-        assertTrue(bst.rContains(10));
-        assertTrue(bst.rContains(5));
-        assertTrue(bst.rContains(15));
-        assertTrue(bst.rContains(2));
-        assertTrue(bst.rContains(7));
-        assertTrue(bst.rContains(12));
+        // Test contains method
+        assertTrue(bst.rContains(50));
+        assertTrue(bst.rContains(30));
+        assertTrue(bst.rContains(70));
         assertTrue(bst.rContains(20));
+        assertTrue(bst.rContains(40));
+        assertTrue(bst.rContains(60));
+        assertTrue(bst.rContains(80));
 
-        // Test that values not inserted are not contained in the tree
-        assertFalse(bst.rContains(9));
-        assertFalse(bst.rContains(17));
+        // Test contains for non-existent values
         assertFalse(bst.rContains(100));
-    }
-
-    @Test
-    public void testInsertDuplicates() {
-        RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
-
-        // Insert duplicate values
-        bst.rInsert(10);
-        bst.rInsert(10); // Duplicate insert
-
-        // Test that only one value exists in the tree
-        assertTrue(bst.rContains(10));
-    }
-
-    @Test
-    public void testEmptyTree() {
-        RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
-
-        // Test contains on empty tree
         assertFalse(bst.rContains(10));
     }
 
     @Test
-    public void testInsertSingleValue() {
+    void testDeleteLeafNode() {
         RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
 
-        // Insert a single value
         bst.rInsert(50);
+        bst.rInsert(30);
+        bst.rInsert(70);
+        bst.rInsert(20);
 
-        // Test that the value is correctly contained in the tree
-        assertTrue(bst.rContains(50));
+        // Delete a leaf node (20)
+        bst.rDelete(20);
+
+        // Verify the node was deleted
         assertFalse(bst.rContains(20));
+
+        // Verify other nodes still exist
+        assertTrue(bst.rContains(50));
+        assertTrue(bst.rContains(30));
+        assertTrue(bst.rContains(70));
     }
+
+    @Test
+    void testDeleteNodeWithOneChild() {
+        RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
+
+        bst.rInsert(50);
+        bst.rInsert(30);
+        bst.rInsert(70);
+        bst.rInsert(20);
+        bst.rInsert(40);
+
+        // Delete node with one child (30)
+        bst.rDelete(30);
+
+        // Verify the node was deleted
+        assertFalse(bst.rContains(30));
+
+        // Verify other nodes still exist
+        assertTrue(bst.rContains(50));
+        assertTrue(bst.rContains(20));
+        assertTrue(bst.rContains(40));
+        assertTrue(bst.rContains(70));
+    }
+
+    @Test
+    void testDeleteNodeWithTwoChildren() {
+        RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
+
+        bst.rInsert(50);
+        bst.rInsert(30);
+        bst.rInsert(70);
+        bst.rInsert(20);
+        bst.rInsert(40);
+        bst.rInsert(60);
+        bst.rInsert(80);
+
+        // Delete node with two children (70)
+        bst.rDelete(70);
+
+        // Verify the node was deleted
+        assertFalse(bst.rContains(70));
+
+        // Verify the tree structure is maintained
+        assertTrue(bst.rContains(50));
+        assertTrue(bst.rContains(30));
+        assertTrue(bst.rContains(20));
+        assertTrue(bst.rContains(40));
+        assertTrue(bst.rContains(60));
+        assertTrue(bst.rContains(80));
+    }
+
+    @Test
+    void testDeleteRootNode() {
+        RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
+
+        bst.rInsert(50);
+        bst.rInsert(30);
+        bst.rInsert(70);
+        bst.rInsert(20);
+        bst.rInsert(40);
+        bst.rInsert(60);
+        bst.rInsert(80);
+
+        // Delete root node (50)
+        bst.rDelete(50);
+
+        // Verify the root was deleted
+        assertFalse(bst.rContains(50));
+
+        // Verify other nodes still exist
+        assertTrue(bst.rContains(30));
+        assertTrue(bst.rContains(20));
+        assertTrue(bst.rContains(40));
+        assertTrue(bst.rContains(70));
+        assertTrue(bst.rContains(60));
+        assertTrue(bst.rContains(80));
+    }
+
+    @Test
+    void testDeleteNonExistentValue() {
+        RecursiveBinarySearchTree bst = new RecursiveBinarySearchTree();
+
+        bst.rInsert(50);
+        bst.rInsert(30);
+        bst.rInsert(70);
+
+        // Delete a non-existent value (100)
+        bst.rDelete(100);
+
+        // Verify the tree remains unchanged
+        assertTrue(bst.rContains(50));
+        assertTrue(bst.rContains(30));
+        assertTrue(bst.rContains(70));
+    }
+
 }
