@@ -3,7 +3,7 @@ package dsajava.datastructures.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Graph {
+public class UnWeightedGraph {
 
     // HashMap to store adjacency list for each vertex.
     // Key is the vertex and value is a list of connected vertices.

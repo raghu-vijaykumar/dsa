@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class GraphTest {
+public class UnWeightedGraphTest {
 
-    private Graph graph;
+    private UnWeightedGraph graph;
 
     @BeforeEach
     public void setup() {
-        graph = new Graph();
+        graph = new UnWeightedGraph();
     }
 
     @Test
