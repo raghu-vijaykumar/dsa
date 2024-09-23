@@ -113,6 +113,23 @@ public class LinkedList {
         }
     }
 
+    public void reverse() {
+        if (head == null || head.next == null)
+            return;
+
+        Node before = null;
+        Node current = head;
+        Node after = head.next;
+        while (after != null) {
+            current.next = before;
+            before = current;
+            current = after;
+            after = after.next;
+        }
+        current.next = before;
+        head = current;
+    }
+
     // Print the elements of linked list
     public String toString() {
         if (length == 0)
